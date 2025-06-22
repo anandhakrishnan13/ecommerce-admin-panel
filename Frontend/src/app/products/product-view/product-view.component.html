@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="product-view">
+    <div class="slider">
+      <button (click)="showPrev()">&#8592;</button>
+
+      <img
+        *ngIf="product.images.length"
+        [src]="product.images[currentImageIndex]"
+        class="product-image"
+        alt="Product image"
+      />
+
+      <button (click)="showNext()">&#8594;</button>
+    </div>
+
+    <h2>{{ product.name }}</h2>
+    <p>SKU: {{ product.sku }}</p>
+    <p>Price: ₹{{ product.price }}</p>
+    <button (click)="router.navigate(['/products'])">Go Back</button>
+  </div>
+</div>

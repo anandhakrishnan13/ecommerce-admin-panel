@@ -1,0 +1,32 @@
+<div class="container">
+    <h2>{{ isEditMode ? 'Edit Product' : 'Add Product' }}</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <label>SKU:</label><br />
+      <input type="text" [(ngModel)]="product.sku" name="sku" required /><br /><br />
+
+      <label>Name:</label><br />
+      <input type="text" [(ngModel)]="product.name" name="name" required /><br /><br />
+
+      <label>Price:</label><br />
+      <input type="number" [(ngModel)]="product.price" name="price" required /><br /><br />
+
+      <label>Upload Image</label>
+      <input type="file" multiple (change)="onFilesSelected($event)" />
+      <br /><br />
+      <div *ngIf="product.images.length > 0">
+        <h4>Current Images</h4>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+          <div *ngFor="let img of product.images; let i = index">
+            <img [src]="img" width="100" height="100" style="object-fit: cover;" />
+            <br />
+            <button type="button" (click)="removeImage(i)">Delete</button>
+          </div>
+        </div>
+        <br />
+      </div>
+
+      <button type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>
+      <button type="button" (click)="router.navigate(['/products'])">Cancel</button>
+    </form>
+  </div>

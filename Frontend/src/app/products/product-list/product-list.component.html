@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Product List</h2>
+  <button (click)="addProduct()">Add Product</button>
+
+  <table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+      <tr>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Images</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.sku }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price | currency }}</td>
+        <td>
+          <img *ngFor="let img of product.images" [src]="img" width="60" style="margin-right: 5px;" />
+        </td>
+        <td>
+          <button (click)="editProduct(product.id!)">Edit</button>
+          <button (click)="deleteProduct(product.id!)">Delete</button>
+          <button (click)="viewProduct(product.id!)">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="logout()">Logout</button>
+</div>

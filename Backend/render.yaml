@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ecommerce-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm run build && node dist/app.js
+    envVars:
+      - key: DATABASE_URL
+        value: YOUR_POSTGRES_CONNECTION_URL
+      - key: JWT_SECRET
+        value: your_jwt_secret_key

@@ -20,7 +20,7 @@ export class LoginComponent {
       password: this.password
     }).subscribe({
       next: (response) => {
-        localStorage.setItem('token', response.token); // Save JWT
+        localStorage.setItem('token', response.token);
         this.router.navigate(['/products']);
       },
       error: (err) => {

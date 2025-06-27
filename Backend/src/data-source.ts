@@ -2,15 +2,17 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { User } from "./entities/User";
 import { Product } from "./entities/Product";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
-  port: 5432,
-  username: "postgres",
-  password: "root",
-  database: "ecommerce_db",
+  url: process.env.DATABASE_URL,
   synchronize: true,
   logging: false,
-  entities: [User,Product],
+  ssl: {
+    rejectUnauthorized: false, // Accept Render's self-signed cert
+  },
+  entities: [User, Product],
 });

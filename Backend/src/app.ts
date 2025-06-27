@@ -1,25 +1,32 @@
 import "reflect-metadata";
 import express from "express";
 import cors from "cors";
+import path from "path";
 import { AppDataSource } from "./data-source";
 import productRoutes from "./routes/product.routes";
-import path from 'path';
 import authRoutes from "./routes/auth.routes";
+import dotenv from "dotenv";
 
+// Load environment variables
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(cors());
 app.use(express.json());
 
-AppDataSource.initialize().then(() => {
-  console.log("Database connected");
-  app.use("/products", productRoutes);
-  app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+// Static folder for image uploads
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+
+// Routes
+app.use("/products", productRoutes);
 app.use("/auth", authRoutes);
 
-
-  app.listen(3000, () => {
-    console.log("Server running on http://localhost:3000");
+// Connect to DB and start server
+AppDataSource.initialize().then(() => {
+  console.log("✅ Database connected");
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
   });
-
-}).catch((error) => console.log(error));
+}).catch((error) => console.error("❌ DB connection failed:", error));

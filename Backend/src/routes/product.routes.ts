@@ -4,8 +4,6 @@ import { upload } from "../utils/upload";
 import { authMiddleware } from "../middleware/authMiddleware";
 import fs from "fs";
 import path from "path";
-import { environment } from 'src/environments/environment';
-
 // import { AuthenticatedRequest } from "../middleware/authMiddleware"; // For `req.user`
 
 const router = Router();
@@ -28,7 +26,7 @@ router.post(
       res.status(400).json({ message: "No file uploaded" });
       return;
     }
-    res.json({ imageUrl: `${environment.apiUrl}/uploads/${file.filename}` });
+    res.json({ imageUrl: `http://localhost:3000/uploads/${file.filename}` });
   }
 );
 

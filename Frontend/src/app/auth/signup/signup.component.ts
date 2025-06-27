@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +22,7 @@ export class SignupComponent {
       return;
     }
 
-    this.http.post('http://localhost:3000/auth/signup', {
+    this.http.post(`${environment.apiUrl}/auth/signup`, {
       username: this.username,
       password: this.password
     }).subscribe({

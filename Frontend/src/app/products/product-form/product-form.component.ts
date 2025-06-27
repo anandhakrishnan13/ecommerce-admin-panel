@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product, ProductService } from '../product.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-form',
@@ -58,7 +59,7 @@ export class ProductFormComponent implements OnInit {
       formData.append('image', files[i]);
 
       this.http.post<{ imageUrl: string }>(
-  'http://localhost:3000/products/upload',
+  `${environment.apiUrl}/products/upload`,
   formData
 ).subscribe({
         next: (response) => {
@@ -78,7 +79,7 @@ removeImage(index: number) {
 
   if (filename) {
     this.http.delete(
-  `http://localhost:3000/products/delete-image/${filename}`
+  `${environment.apiUrl}/products/delete-image/${filename}`
 )
 .subscribe({
       next: () => {
